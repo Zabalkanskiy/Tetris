@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/name_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="75dp"
+        android:text="@string/game"
+        app:layout_constraintStart_toStartOf="@+id/high_score_text"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/new_game_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="33dp"
+        android:text="@string/new_game_button"
+        app:layout_constraintStart_toStartOf="@+id/reset_high_score"
+        app:layout_constraintTop_toBottomOf="@+id/high_score_text" />
+
+    <Button
+        android:id="@+id/setting_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/setting_button"
+        app:layout_constraintEnd_toEndOf="@+id/new_game_button"
+        app:layout_constraintTop_toBottomOf="@+id/new_game_button" />
+
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/exit_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reset_high_score" />
+
+    <TextView
+        android:id="@+id/high_score_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/high_score"
+        app:layout_constraintEnd_toEndOf="@+id/new_game_button"
+        app:layout_constraintTop_toBottomOf="@+id/name_game" />
+
+    <Button
+        android:id="@+id/reset_high_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/reset_high_score"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setting_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
