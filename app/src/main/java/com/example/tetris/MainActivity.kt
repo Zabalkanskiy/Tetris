@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
-    val highScore = findViewById<TextView>(R.id.high_score_text)
+//    val highScore = findViewById<TextView>(R.id.high_score_text)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onButtonResetScore(view:View){
+        val highScore = findViewById<TextView>(R.id.high_score_text)
         val preference = AppPreference(this)
         preference.resetScore()
         Snackbar.make(view, "score successfuly reset", Snackbar.LENGTH_SHORT).show()
