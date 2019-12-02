@@ -106,8 +106,88 @@ class AppModel {
             coordinate?.y = currentBlock?.position?.y
 
             when(action){
-                
+
+                Motion.LEFT.name ->{
+                    coordinate?.x = currentBlock?.position?.x?.minus(1)
+                }
+
+                Motion.RIGTH.name ->{
+                    coordinate?.x = currentBlock?.position?.x?.plus(1)
+                }
+                Motion.DOWN.name ->{
+                    coordinate?.y = currentBlock?.position?.y?.plus(1)
+                }
+                Motion.ROTATE.name ->{
+                    frameNumber = frameNumber?.plus(1)
+
+                    if(frameNumber != null){
+                        if(frameNumber >=  currentBlock?.frameCount as Int){
+                            frameNumber = 0
+                        }
+                    }
+                }
             }
         }
+    }
+
+    private fun resetField(ephemeralCellOnly: Boolean = true){
+        for(i in 0 until FieldConstants.ROW_COUNT.value){
+            (0 until FieldConstants.COLUMN_COUNT.value).filter { !ephemeralCellOnly|| field[i][it] == CellConstants.EPHEMERAL.value }
+                .forEach{ field[i][it] = CellConstants.EMPTY.value}
+        }
+    }
+
+    private fun persistCellDatea(){
+        for (i in 0 until field.size){
+            for (j in 0 until field[i].size){
+                var status = getCellStatus(i,j)
+                if (status == CellConstants.EPHEMERAL.value){
+                    status = currentBlock?.staticValue
+                    setCellStatus(i,j, status)
+                }
+            }
+        }
+    }
+
+    private fun assessField(){
+
+        for(i in 0 until field.size){
+            var emptyCells = 0
+            for(j in 0 until field[i].size){
+                val status = getCellStatus(i,j)
+                val isEmpty = CellConstants.EMPTY.value ==status
+
+                if(isEmpty){
+                    emptyCells ++
+                }
+
+            }
+            if (emptyCells == 0){
+                shiftRows(i)
+            }
+        }
+    }
+
+    private fun translateBlock(position:Point, frameNumber: Int){
+        synchronized(field){
+            val shape: Array<ByteArray>? = currentBlock?.getShape(frameNumber)
+
+            if(shape != null){
+                for(i in shape.indices){
+                    for (j in 0 until shape[i].size){
+                        val y  = position.y + i
+                        val x = position.x + j
+
+                        if(CellConstants.EMPTY.value != shape[i][j]){
+                            field[x][y] = shape[i][j]
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun blockAdditionPossible(){
+        
     }
 }
