@@ -187,7 +187,47 @@ class AppModel {
         }
     }
 
-    private fun blockAdditionPossible(){
-        
+    private fun blockAdditionPossible():Boolean{
+        if(!moveValid(currentBlock?.position as Point,currentBlock?.frameNumber)){
+            return false
+        }
+            return true
+
+    }
+
+    private fun shiftRows(nToRow:Int){
+        if (nToRow>0){
+            for (j in nToRow -1 downTo 0){
+                for (m in 0 until field[j].size){
+                    setCellStatus(j + 1,m, getCellStatus(j,m))
+                }
+            }
+        }
+        for (j in 0 until field[0].size){
+            setCellStatus(0,j,CellConstants.EMPTY.value)
+        }
+    }
+
+    fun startGame(){
+        if(!isGameActive()){
+            currentState = Statuses.ACTIVE.name
+            generateNextBlock()
+        }
+    }
+
+    fun restartGame(){
+        resetModel()
+        startGame()
+    }
+
+    fun endGame(){
+        score = 0
+        currentState = AppModel.Statuses.OVER.name
+    }
+
+    private  fun resetModel(){
+        resetField(false)
+        currentState = Statuses.AWAITING_START.name
+        score = 0
     }
 }
